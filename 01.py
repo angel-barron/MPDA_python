@@ -7,6 +7,9 @@
         b: Points y
         c: Lines
         d: division Points
+        e: curves
+        f: surface
+        g: mesh
         """
 
 
