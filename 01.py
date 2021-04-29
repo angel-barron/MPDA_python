@@ -118,7 +118,6 @@ for list in allDivPts:
 
 d = th.list_to_tree(allMovedPts) #output list of list to gh
 
-"""
 #----------------------------------------------------------
 #6.- make a curve from a list of points
 #again, initialize a en empty list which will contain curves
@@ -128,26 +127,33 @@ d = th.list_to_tree(allMovedPts) #output list of list to gh
 
 #make a curve from list of points
 curveList = []
+for list in allMovedPts:
+    cvInt = rg.Curve.CreateInterpolatedCurve(list,3)
+    curveList.append(cvInt)
 
 #your code goes here
 
 e= curveList
+
 
 #----------------------------------------------------------
 # 7.- create a loft surface from curves
 #use rg.Brep.CreateFromLoft() (see rc) to create a surface from loft
 #store it in a variable and output it to gh
 
-
+surface = rg.Brep.CreateFromLoft(e, rg.Point3d.Unset, rg.Point3d.Unset, rg.LoftType.Normal,False)
 
 f = surface
+
 #----------------------------------------------------------
 #8.- create a mesh from Brep
 #The last step is to create a mesh from a Brep using rg.Mesh
 #There are different ways to approach this, but the suggestion is to use allMovedPts
 #and find a way to create mesh faces from that list and merge them into a larger mesh
 
+mP = rg.MeshingParameters()
+mesh = rg.Mesh.CreateFromBrep(surface[0],mP)
+
 g = mesh
 
 # THE END
- """
