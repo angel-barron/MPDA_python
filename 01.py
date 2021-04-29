@@ -6,6 +6,7 @@
         a: Points
         b: Points y
         c: Lines
+        d: division Points
         """
 
 
@@ -61,11 +62,9 @@ lineList = []
 for i in (range(len(a))):
     lineList.append(rg.LineCurve(a[i],b[i]))
 
-#your code here
-
-
 c = lineList
-""" 
+
+
 #----------------------------------------------------------
 #4.- divide curve -
 #initialize another empty list to store some curves
@@ -80,19 +79,18 @@ c = lineList
 allDivPts = [] #this will be a list of lists
 for line in lineList:
     linePts =[] #create an empty list to fill each iteration
-    #some code goes here....
-    
-    
-    
+    crv = line.ToNurbsCurve()
+    params = rg.Curve.DivideByCount(crv,10,True)
+
     for p in params:
-        #some code goes here....
-        
+        divPt = rg.Curve.PointAt(line,p)        
         linePts.append(divPt)
 
     #here you return to the scope of the first for loop
     allDivPts.append(linePts) #append the list of points PER LINE to another list
 
 d = th.list_to_tree(allDivPts) #this is how you output nested lists to gh trees
+
 
 #----------------------------------------------------------
 #5.- apply sine function to points
@@ -109,10 +107,8 @@ d = th.list_to_tree(allDivPts) #this is how you output nested lists to gh trees
 
 allMovedPts = [] #list of all moved points
 for list in allDivPts:
-    movedPts= [] #list of moved points
-    #some code goes here....
-    
-    
+    movedPts= [] #list of moved points    
+    vector = rg.Vector3d(pt)
     for pt in list:
         #some code goes here....
 
@@ -121,7 +117,7 @@ for list in allDivPts:
     movedPts.append(sinePts)
 
 d = th.list_to_tree(movedPts) #output list of list to gh
-
+""" 
 #----------------------------------------------------------
 #6.- make a curve from a list of points
 #again, initialize a en empty list which will contain curves
